@@ -1,0 +1,147 @@
+```html
+
+<style>
+.yd-sb-wrap{position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:1000}
+.yd-sb{width:36px;height:36px;transition:width .3s ease,height .3s ease}
+.yd-sb[open]{width:240px;height:auto;max-height:70vh;overflow-y:auto}
+.yd-sb summary{list-style:none;cursor:pointer;display:flex;height:36px;width:100%;border:none;padding:0;background:none}
+.yd-sb summary::-webkit-details-marker{display:none}
+.yd-sb summary:focus{outline:none}
+.yd-sb-tab-l{width:10px;background:#050505;height:36px}
+.yd-sb-tab-r{flex:1;color:#050505;font-weight:800;padding:8px 6px;background:#fbd0d1;font-size:10px;text-align:left;letter-spacing:2px;display:flex;align-items:center;gap:3px;border:2px solid #050505;border-left:none;height:36px;box-sizing:border-box}
+.yd-sb-body{background:transparent;box-sizing:border-box;padding:6px}
+.ya-pix-player{position:relative;background:#FFF9FA;border:3px dashed #FFB6C1;border-radius:10px;padding:18px 10px 10px 10px;max-width:210px;margin:6px auto;font-family:'Courier New',monospace;box-shadow:3px 3px 0px #FFDF00}
+.ya-pix-cat{position:absolute;top:-34px;right:-6px;width:44px;z-index:10;pointer-events:none}
+.ya-pix-header{position:absolute;top:-11px;left:-2px;background:#E0FFFF;padding:1px 6px;font-size:8px;font-weight:bold;color:#008B8B;border:1.5px solid #87CEFA;border-radius:4px;box-shadow:1px 1px 0px #FFDF00}
+.ya-pix-title{text-align:center;font-size:11px;font-weight:bold;color:#FF1493;margin-top:3px}
+.ya-pix-sub{text-align:center;font-size:9px;color:#BA55D3;margin-bottom:10px}
+.ya-pix-audio-wrap{position:relative;background:#FFF;border:2px solid #FFA07A;border-radius:24px;height:32px;margin-bottom:8px;display:flex;align-items:center}
+.ya-ui-layer{display:flex;width:100%;align-items:center;gap:6px;padding:0 24px;z-index:15;position:relative}
+.ya-heart-trigger{cursor:pointer;width:22px;height:22px;flex-shrink:0;z-index:20}
+.ya-heart-pic{width:100%;height:100%;object-fit:contain;filter:drop-shadow(1px 1px 0px #FFB6C1)}
+@keyframes ya-jump{0%{transform:scale(1)}20%{transform:scale(1.25)}40%{transform:scale(1)}100%{transform:scale(1)}}
+.ya-beating{animation:ya-jump .8s infinite}
+.ya-bar-bg{flex:1;height:7px;background:#FFE4E1;border-radius:4px;cursor:pointer;position:relative;overflow:hidden;border:1px solid #FFDAB9}
+.ya-bar-fill{position:absolute;left:0;top:0;height:100%;background:#FFA07A;width:0%;transition:width .1s linear;pointer-events:none}
+.ya-deco-left,.ya-deco-right{position:absolute;top:5px;width:16px;z-index:1;pointer-events:none}
+.ya-deco-left{left:3px}
+.ya-deco-right{right:3px}
+.ya-nav-row{display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:8px}
+.ya-nav-btn{cursor:pointer;width:22px;height:22px;background:#FFFACD;border:1.5px solid #FFA07A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#FF8C00;box-shadow:1px 1px 0 #FFDF00;font-weight:bold;user-select:none}
+.ya-nav-btn:active{transform:scale(.9)}
+.ya-track-num{font-size:8px;color:#BA55D3;background:#FFF0F5;padding:1px 5px;border-radius:6px;border:1px solid #FFB6C1}
+.ya-collapsible{text-align:center}
+.ya-toggle-check{display:none}
+.ya-pix-footer{display:block;font-size:9px;font-weight:bold;color:#FF8C00;background:#FFFACD;padding:4px;border-radius:5px;border:1.5px dashed #FFA07A;cursor:pointer;user-select:none}
+.ya-pix-footer:active{background:#FFE4B5}
+.ya-cat-reveal{display:none;background:#FFF9FA;border:1.5px dashed #FFA07A;border-top:none;border-radius:0 0 6px 6px;padding:8px;margin-top:-1px}
+.ya-toggle-check:checked~.ya-cat-reveal{display:block}
+.ya-toggle-check:checked~.ya-pix-footer{border-radius:5px 5px 0 0}
+.ya-cat-box{position:relative;display:inline-flex;flex-direction:column;align-items:center;cursor:pointer;padding:6px}
+.ya-cow-cat{width:80px;height:auto}
+.ya-cat-txt{font-size:9px;font-weight:bold;color:#FF1493;margin-top:3px;background:#FFF0F5;padding:2px 6px;border-radius:8px;border:1px solid #FFB6C1}
+.ya-static-zzz{position:absolute;top:0;right:0;width:24px;height:24px;animation:ya-simple-float 3s infinite ease-in-out;pointer-events:none}
+@keyframes ya-simple-float{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-6px) rotate(5deg)}}
+</style>
+<div class="yd-sb-wrap">
+<details class="yd-sb">
+<summary>
+<div class="yd-sb-tab-l"></div>
+<div class="yd-sb-tab-r">♪ FM</div>
+</summary>
+<div class="yd-sb-body">
+<div class="ya-pix-player">
+<audio id="mainMusic" preload="auto"></audio>
+<audio id="clickTick" src="https://files.catbox.moe/il7h07.mp3" preload="auto"></audio>
+<audio id="masterPurr" src="https://files.catbox.moe/08u05x.mp3" preload="auto"></audio>
+<img src="https://files.catbox.moe/trfug4.png" class="ya-pix-cat">
+<div class="ya-pix-header">『 主人专属电台 』</div>
+<div class="ya-pix-title" id="songTitle">Track 01</div>
+<div class="ya-pix-sub" id="songArtist">♪ 008's Playlist</div>
+<div class="ya-pix-audio-wrap">
+<img class="ya-deco-left" src="https://img.baidu.re/i/2026/04/xakp8i.png">
+<img class="ya-deco-right" src="https://img.baidu.re/i/2026/04/xal55k.png">
+<div class="ya-ui-layer">
+<div class="ya-heart-trigger" id="heartBtn">
+<img id="heartImg" src="https://img.baidu.re/i/2026/04/6qboeh.png" class="ya-heart-pic">
+</div>
+<div class="ya-bar-bg" id="barBox">
+<div class="ya-bar-fill" id="barFill"></div>
+</div>
+</div>
+</div>
+<div class="ya-nav-row">
+<div class="ya-nav-btn" id="prevBtn">◀</div>
+<div class="ya-track-num" id="trackNum">01 / 20</div>
+<div class="ya-nav-btn" id="nextBtn">▶</div>
+</div>
+<div class="ya-collapsible">
+<input type="checkbox" id="ya-toggle" class="ya-toggle-check">
+<label for="ya-toggle" class="ya-pix-footer" id="footerLabel">▼ 接收心动波段 ▼</label>
+<div class="ya-cat-reveal">
+<div class="ya-cat-box" id="catBox">
+<img class="ya-static-zzz" src="https://files.catbox.moe/2nxgv8.png">
+<img class="ya-cow-cat" src="https://img.baidu.re/i/2026/04/xhn3f9.png">
+<div class="ya-cat-txt">喵喵又咪咪Zzzz...</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</details>
+</div>
+<script>
+(function(){
+var pl=[
+{t:"Track 01",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/1.mp3"},
+{t:"Track 02",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/2.mp3"},
+{t:"Track 03",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/3.mp3"},
+{t:"Track 04",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/4.mp3"},
+{t:"Track 05",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/5.m4a"},
+{t:"Track 06",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/6.mp3"},
+{t:"Track 07",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/7.mp3"},
+{t:"Track 08",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/8.mp3"},
+{t:"Track 09",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/9.mp3"},
+{t:"Track 10",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/10.mp3"},
+{t:"Track 11",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/11.mp3"},
+{t:"Track 12",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/12.mp3"},
+{t:"Track 13",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/13.m4a"},
+{t:"Track 14",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/14.mp3"},
+{t:"Track 15",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/15.m4a"},
+{t:"Track 16",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/16.mp3"},
+{t:"Track 17",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/17.m4a"},
+{t:"Track 18",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/18.mp3"},
+{t:"Track 19",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/19.mp3"},
+{t:"Track 20",u:"https://cdn.jsdelivr.net/gh/derrickwadfordr-alt/-.yyy/20.mp3"}
+];
+var cur=0;
+var a=document.getElementById("mainMusic");
+var ct=document.getElementById("clickTick");
+var hb=document.getElementById("heartBtn");
+var hi=document.getElementById("heartImg");
+var bf=document.getElementById("barFill");
+var bb=document.getElementById("barBox");
+var nb=document.getElementById("nextBtn");
+var pb=document.getElementById("prevBtn");
+var st=document.getElementById("songTitle");
+var tn=document.getElementById("trackNum");
+var cb=document.getElementById("catBox");
+a.src=pl[cur].u;
+st.textContent=pl[cur].t;
+hb.onclick=function(){
+if(a.paused){a.play().catch(function(){a.load();a.play();});}
+else{a.pause();}
+ct.currentTime=0;ct.play();
+};
+a.onplay=function(){hi.classList.add("ya-beating");};
+a.onpause=function(){hi.classList.remove("ya-beating");};
+a.ontimeupdate=function(){if(a.duration)bf.style.width=(a.currentTime/a.duration*100)+"%";};
+a.onended=function(){cur++;if(cur>=pl.length)cur=0;a.src=pl[cur].u;st.textContent=pl[cur].t;tn.textContent=String(cur+1).padStart(2,"0")+"/"+pl.length;a.play();};
+bb.onclick=function(e){var r=bb.getBoundingClientRect();if(a.duration)a.currentTime=((e.clientX-r.left)/r.width)*a.duration;};
+nb.onclick=function(){ct.currentTime=0;ct.play();cur++;if(cur>=pl.length)cur=0;a.src=pl[cur].u;st.textContent=pl[cur].t;tn.textContent=String(cur+1).padStart(2,"0")+"/"+pl.length;a.play();};
+pb.onclick=function(){ct.currentTime=0;ct.play();cur--;if(cur<0)cur=pl.length-1;a.src=pl[cur].u;st.textContent=pl[cur].t;tn.textContent=String(cur+1).padStart(2,"0")+"/"+pl.length;a.play();};
+cb.onclick=function(){var p=document.getElementById("masterPurr");p.currentTime=0;p.play();};
+})();
+</script>
+
+```
